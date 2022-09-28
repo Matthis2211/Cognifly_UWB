@@ -23,6 +23,8 @@ class PoseEstimatorOptitrack(PoseEstimator):
         if serial_port is None:
             print("No Pozyx connected. Check your USB cable or your driver!")
             quit()
+        else:
+            print(f"Pozyx selected serial port: {serial_port}")
 
         remote_id = None  # remote device network ID
 

@@ -149,6 +149,8 @@ class ReadyToLocalize(object):
         if status == POZYX_SUCCESS:
             return position.x, position.y, position.z
         else:
+            print(f"ERROR: doPositioning returned {status}, exiting.")
+            quit()
             return None, None, None
 
 
