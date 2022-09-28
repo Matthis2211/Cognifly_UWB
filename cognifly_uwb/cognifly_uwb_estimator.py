@@ -1,6 +1,5 @@
 from threading import Lock
 import time
-from OptiTrackPython import NatNetClient
 from multiprocessing import Process, Pipe
 import socket
 import struct
