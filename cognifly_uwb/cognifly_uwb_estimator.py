@@ -100,7 +100,7 @@ if __name__ == '__main__':
     print("uwb estimator ready!")
     cc = CogniflyController(print_screen=True,
                             pose_estimator=pe,
-                            trace_logs=True,
+                            trace_logs=False,
                             vel_x_kp=250.0,
                             vel_x_ki=100.0,
                             vel_x_kd=10.0,
