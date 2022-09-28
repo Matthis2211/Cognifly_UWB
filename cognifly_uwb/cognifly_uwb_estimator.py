@@ -68,7 +68,7 @@ class PoseEstimatorOptitrack(PoseEstimator):
         self.close()
 
     def get(self):
-        est_x, est_y, est_z, est_yaw, est_vx, est_vy, est_vz, est_w = self.get_fc_estimates()
+        est_x, est_y, est_z, est_yaw, est_vx, est_vy, est_vz, est_w = self.get_fc_estimate()
 
         t = time.monotonic()
         step = t - self.ts
