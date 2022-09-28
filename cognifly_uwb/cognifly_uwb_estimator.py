@@ -57,7 +57,7 @@ class PoseEstimatorOptitrack(PoseEstimator):
         self.x, self.y = None, None
 
         while self.x is None or self.y is None:
-            self.x, self.y = self.r.get_position()
+            self.x, self.y, _ = self.r.get_position()
             if self.x is None or self.y is None:
                 time.sleep(0.1)
         print("first estimate received!")
@@ -75,7 +75,7 @@ class PoseEstimatorOptitrack(PoseEstimator):
         if t - self.ts_last_recv_ot > 0.5:
             return (None, None, None, None, None, None, None, None)
 
-        x, y = self.r.get_position()
+        x, y, _ = self.r.get_position()
         self.z, self.yaw, self.vz, self.w = est_z, est_yaw, est_vz, est_w
 
         y = -y  # aerospace convention
