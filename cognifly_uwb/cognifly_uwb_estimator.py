@@ -56,7 +56,7 @@ class PoseEstimatorOptitrack(PoseEstimator):
         self.ts_ot = None
         self.ts_last_recv_ot = self.ts
 
-        self.x, self.y = None, None
+        self.x, self.y, self.z, self.yaw, self.vx, self.vy, self.vz, self.w = None, None, None, None, None, None, None, None
 
         while self.x is None or self.y is None:
             self.x, self.y, _ = self.r.get_position()
@@ -74,7 +74,17 @@ class PoseEstimatorOptitrack(PoseEstimator):
         step = t - self.ts
         self.ts = t
 
+        elapsed = self.ts - self.ts_last_recv_ot
+
         x, y, _ = self.r.get_position()
+        if x is None or y is None:
+            if elapsed > 0.5:
+                return (None, None, None, None, None, None, None, None)
+            else:
+                return self.x, self.y, self.z, self.yaw, self.vx, self.vy, self.vz, self.w
+
+        self.ts_last_recv_ot = self.ts
+
         self.z, self.yaw, self.vz, self.w = est_z, est_yaw, est_vz, est_w
 
         y = -y  # aerospace convention
