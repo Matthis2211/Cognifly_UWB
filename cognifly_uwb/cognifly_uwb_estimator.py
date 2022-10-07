@@ -29,10 +29,10 @@ class PoseEstimatorOptitrack(PoseEstimator):
         remote_id = None  # remote device network ID
 
         # necessary data for calibration, change the IDs and coordinates yourself according to your measurement
-        anchors = [DeviceCoordinates(0x0022, 1, Coordinates(0, 0, 2790)),
-                   DeviceCoordinates(0x0024, 1, Coordinates(10490, 0, 2790)),
-                   DeviceCoordinates(0x0026, 1, Coordinates(-405, 6000, 2790)),
-                   DeviceCoordinates(0x0028, 1, Coordinates(10490, 6500, 2790))]
+        anchors = [DeviceCoordinates(0x0022, 1, Coordinates(1.2, 8.4, 1.66)),
+                   DeviceCoordinates(0x0024, 1, Coordinates(1.1, 0.6, 1.7)),
+                   DeviceCoordinates(0x0026, 1, Coordinates(5.4, 5.3, 1.9)),
+                   DeviceCoordinates(0x0028, 1, Coordinates(0, 6.1, 1.9))]
 
         # positioning algorithm to use, other is PozyxConstants.POSITIONING_ALGORITHM_TRACKING
         algorithm = PozyxConstants.POSITIONING_ALGORITHM_UWB_ONLY
