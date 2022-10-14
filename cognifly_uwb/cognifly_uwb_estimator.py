@@ -7,6 +7,8 @@ import pickle
 import math
 import socket
 
+import logging
+
 from cognifly.cognifly_controller.cognifly_controller import CogniflyController, PoseEstimator
 from cognifly.utils.functions import smallest_angle_diff_rad
 from cognifly.utils.filters import Simple1DKalman, Simple1DExponentialAverage
@@ -59,7 +61,8 @@ class PoseEstimatorOptitrack(PoseEstimator):
         self.x, self.y, self.z, self.yaw, self.vx, self.vy, self.vz, self.w = None, None, None, None, None, None, None, None
 
         while self.x is None or self.y is None:
-            self.x, self.y, _ = self.r.get_position()
+            self.x, self.y, z = self.r.get_position()
+            logging.info(f"init {(self.x, self.y, z)}")
             if self.x is None or self.y is None:
                 time.sleep(0.1)
         print("first estimate received!")
@@ -76,7 +79,8 @@ class PoseEstimatorOptitrack(PoseEstimator):
 
         elapsed = self.ts - self.ts_last_recv_ot
 
-        x, y, _ = self.r.get_position()
+        x, y, z = self.r.get_position()
+        logging.info(f"get {(x, y, z)}")
         if x is None or y is None:
             if elapsed > 0.5:
                 return (None, None, None, None, None, None, None, None)
@@ -93,6 +97,7 @@ class PoseEstimatorOptitrack(PoseEstimator):
         vy = (y - self.y) / step
 
         self.x, self.y = x, y
+        logging.info(f"debug {(x, y)}")
         self.vx = self.filter_vx.update_estimate(vx)
         self.vy = self.filter_vy.update_estimate(vy)
         self.ts_last_recv_ot = t
